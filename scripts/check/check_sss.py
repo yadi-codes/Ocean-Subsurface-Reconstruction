@@ -1,21 +1,26 @@
 from pathlib import Path
-import xarray as xr
+import re
+from collections import Counter
 
 folder = Path("data/raw/SSS")
 
-bad = []
+files = sorted(folder.glob("*.nc"))
 
-for file in sorted(folder.glob("*.nc")):
+print("Total files:", len(files))
 
-    try:
-        ds = xr.open_dataset(file)
-        ds.close()
+pattern = re.compile(r"(\d{8})")
 
-    except Exception:
-        print("BAD:", file.name)
-        bad.append(file)
+months = []
 
-print("\nTotal bad files:", len(bad))
+for f in files:
+    m = pattern.search(f.name)
+    if m:
+        months.append(m.group(1)[:6])
 
-for f in bad:
-    print(f)
+counts = Counter(months)
+
+print("\nMonths that don't have exactly 2 files:\n")
+
+for month in sorted(counts):
+    if counts[month] != 2:
+        print(month, "->", counts[month], "file(s)")
