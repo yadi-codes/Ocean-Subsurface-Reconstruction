@@ -1,7 +1,13 @@
 from pathlib import Path
+from pathlib import Path
+import sys
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
+from utils.config import *
 import xarray as xr
 
-sst_path = Path("data/raw/SST")
+sst_path = RAW_DATA / "SST"
 
 datasets = []
 
@@ -28,6 +34,6 @@ print("Loaded",len(datasets),"months")
 
 merged = xr.concat(datasets,dim="time")
 
-merged.to_netcdf("data/processed/sst.nc")
+merged.to_netcdf(PROCESSED_DATA / "sst.nc")
 
 print(merged)
