@@ -1,25 +1,16 @@
 from pathlib import Path
 import xarray as xr
+import pandas as pd
 
-sst_path = Path("data/raw/SST")
+file = Path("data/processed/sst_monthly.nc")
 
-bad = []
+ds = xr.open_dataset(file)
 
-for folder in sorted(sst_path.iterdir()):
+print("Time dimension:", ds.sizes["time"])
 
-    if not folder.is_dir():
-        continue
+print("\nAll months in file:\n")
 
-    for file in sorted(folder.glob("*.nc")):
+months = pd.to_datetime(ds.time.values).strftime("%Y-%m")
 
-        try:
-            xr.open_dataset(file).close()
-
-        except Exception as e:
-            print("BAD:", file.name)
-            bad.append(file)
-
-print("\nTotal bad files:", len(bad))
-
-for f in bad:
-    print(f)
+for m in months:
+    print(m)

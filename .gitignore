@@ -1,28 +1,77 @@
+# ==========================
 # Python
+# ==========================
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Virtual environment
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# ==========================
+# Virtual Environments
+# ==========================
 .venv/
 venv/
+env/
 
-# VS Code
+# ==========================
+# IDEs
+# ==========================
 .vscode/
+.idea/
 
+# ==========================
 # Jupyter
+# ==========================
 .ipynb_checkpoints/
 
-# Large datasets
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+
+# ==========================
+# Large Datasets
+# ==========================
 data/raw/
 data/processed/
 
-# Model weights
+# Uncomment if you later want to keep processed data
+# !data/processed/README.md
+
+# ==========================
+# Trained Models
+# ==========================
 *.pth
 *.pt
 *.ckpt
+*.onnx
 
-# OS files
+# ==========================
+# Logs
+# ==========================
+*.log
+
+# ==========================
+# Temporary Files
+# ==========================
+*.tmp
+*.bak
+*.swp
+
+# ==========================
+# Results
+# ==========================
+results/
+outputs/
+runs/
+
+# ==========================
+# OS Files
+# ==========================
 .DS_Store
 Thumbs.db

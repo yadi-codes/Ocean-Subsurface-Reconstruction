@@ -1,12 +1,21 @@
 from pathlib import Path
 import xarray as xr
 
-file = next(Path("data/raw/SSS").glob("*.nc"))
+folder = Path("data/raw/SSS")
 
-print("Opening:", file.name)
+bad = []
 
-ds = xr.open_dataset(file)
+for file in sorted(folder.glob("*.nc")):
 
-print(ds)
-print("\nVariables:", list(ds.data_vars))
-print("\nCoordinates:", list(ds.coords))
+    try:
+        ds = xr.open_dataset(file)
+        ds.close()
+
+    except Exception:
+        print("BAD:", file.name)
+        bad.append(file)
+
+print("\nTotal bad files:", len(bad))
+
+for f in bad:
+    print(f)
