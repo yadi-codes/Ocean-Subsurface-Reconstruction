@@ -8,6 +8,12 @@ Input:
 Output:
     (B, T, hidden_dim, H, W)
 """
+from pathlib import Path
+import sys
+
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
+import utils.config as config
 
 from typing import Tuple
 
@@ -22,9 +28,9 @@ class ConvLSTMCell(nn.Module):
 
     def __init__(
         self,
-        input_dim: int,
-        hidden_dim: int,
-        kernel_size: int = 3,
+        input_dim: int = config.INPUT_CHANNELS,
+        hidden_dim: int = config.HIDDEN_DIM,
+        kernel_size: int = config.KERNEL_SIZE,
         bias: bool = True,
     ):
 
@@ -99,22 +105,12 @@ class ConvLSTM(nn.Module):
             bias=bias,
         )
 
-    def forward(self, x: torch.Tensor):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
 
         B, T, C, H, W = x.shape
 
-        device = x.device
-
-        h = torch.zeros(
-            B,
-            self.hidden_dim,
-            H,
-            W,
-            device=device,
-        )
-
-        c = torch.zeros_like(h)
-
+        h = x.new_zeros(B, self.hidden_dim, H, W)
+        c = x.new_zeros(B, self.hidden_dim, H, W)
         outputs = []
 
         for t in range(T):

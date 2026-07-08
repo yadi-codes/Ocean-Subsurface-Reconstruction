@@ -15,7 +15,7 @@ MODELS_DIR = PROJECT_ROOT / "models"
 EXPERIMENTS_DIR = PROJECT_ROOT / "experiments"
 
 # ==================================================
-# STUDY REGION (Paper)
+# STUDY REGION
 # ==================================================
 
 START_YEAR = 2010
@@ -83,21 +83,22 @@ TRAIN_END_YEAR = 2017
 VAL_END_YEAR = 2019
 
 # ==================================================
-# CONVFORMER
+# MODEL
 # ==================================================
 
-PATCH_SIZE = 4
+# ConvLSTM
+HIDDEN_DIM = 64
+KERNEL_SIZE = 3
 
+# Patch Embedding
+PATCH_SIZE = 1
 EMBED_DIM = 128
 
+# Transformer
 NUM_HEADS = 8
+NUM_ENCODER_LAYERS = 4
 
-NUM_LAYERS = 6
-
-CONVLSTM_HIDDEN = 64
-
-MLP_RATIO = 4
-
+MLP_DIM = 256
 DROPOUT = 0.1
 
 # ==================================================
@@ -116,11 +117,6 @@ NUM_WORKERS = 4
 
 PIN_MEMORY = True
 
-# ==================================================
-# RANDOMNESS
-# ==================================================
-
-RANDOM_SEED = 42
 # ==================================================
 # EXPERIMENT TRACKING
 # ==================================================
@@ -129,57 +125,10 @@ EXPERIMENT_NAME = "baseline"
 
 RANDOM_SEED = 42
 
-# ==================================================
-# DATASET
-# ==================================================
-
-SEQUENCE_LENGTH = 3
-
-INPUT_CHANNELS = 5
-OUTPUT_CHANNELS = 2
-
-TRAIN_END_YEAR = 2017
-VAL_END_YEAR = 2019
-
-# ==================================================
-# CONVFORMER
-# ==================================================
-
-PATCH_SIZE = 4
-
-EMBED_DIM = 128
-
-NUM_HEADS = 8
-
-NUM_LAYERS = 6
-
-CONVLSTM_HIDDEN = 64
-
-MLP_RATIO = 4
-
-DROPOUT = 0.1
-
-# ==================================================
-# TRAINING
-# ==================================================
-
-BATCH_SIZE = 8
-
-LEARNING_RATE = 1e-4
-
-WEIGHT_DECAY = 1e-5
-
-EPOCHS = 100
-
-NUM_WORKERS = 4
-
-PIN_MEMORY = True
-
 
 def get_training_config():
     """
     Returns every tunable hyperparameter.
-    This will be automatically saved for every experiment.
     """
 
     return {
@@ -188,17 +137,19 @@ def get_training_config():
 
         "sequence_length": SEQUENCE_LENGTH,
 
-        "patch_size": PATCH_SIZE,
+        "input_channels": INPUT_CHANNELS,
+        "output_channels": OUTPUT_CHANNELS,
 
+        "hidden_dim": HIDDEN_DIM,
+        "kernel_size": KERNEL_SIZE,
+
+        "patch_size": PATCH_SIZE,
         "embedding_dimension": EMBED_DIM,
 
         "num_heads": NUM_HEADS,
+        "num_encoder_layers": NUM_ENCODER_LAYERS,
 
-        "num_layers": NUM_LAYERS,
-
-        "convlstm_hidden": CONVLSTM_HIDDEN,
-
-        "mlp_ratio": MLP_RATIO,
+        "mlp_dimension": MLP_DIM,
 
         "dropout": DROPOUT,
 
