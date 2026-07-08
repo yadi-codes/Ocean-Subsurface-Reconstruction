@@ -75,3 +75,9 @@ runs/
 # ==========================
 .DS_Store
 Thumbs.db
+
+# Generated training datasets
+data/dataset/*.npz
+
+# Keep metadata
+!data/dataset/dataset_info.json
