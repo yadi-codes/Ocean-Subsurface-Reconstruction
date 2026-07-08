@@ -7,19 +7,21 @@ import torch
 
 import utils.config as config
 
-from models.convformer import ConvFormer
+from models.decoder import Decoder
 
 
 def main():
 
-    model = ConvFormer()
+    model = Decoder()
 
     x = torch.randn(
+
         2,
-        config.SEQUENCE_LENGTH,
-        config.INPUT_CHANNELS,
-        config.GRID_HEIGHT,
-        config.GRID_WIDTH,
+
+        config.NUM_PATCHES,
+
+        config.EMBED_DIM,
+
         requires_grad=True,
     )
 
@@ -29,10 +31,10 @@ def main():
     print("Output:", y.shape)
 
     loss = y.mean()
+
     loss.backward()
 
-    print("✓ Gradient check passed")
-    print("✓ ConvFormer test passed")
+    print("✓ Decoder test passed")
 
 
 if __name__ == "__main__":

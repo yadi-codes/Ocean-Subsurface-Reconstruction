@@ -125,6 +125,21 @@ EXPERIMENT_NAME = "baseline"
 
 RANDOM_SEED = 42
 
+# ==================================================
+# GRID
+# ==================================================
+
+GRID_HEIGHT = 59
+GRID_WIDTH = 79
+
+DEPTH_LEVELS = 58
+
+PATCH_SIZE = 4
+
+PATCH_HEIGHT = GRID_HEIGHT // PATCH_SIZE
+PATCH_WIDTH = GRID_WIDTH // PATCH_SIZE
+
+NUM_PATCHES = PATCH_HEIGHT * PATCH_WIDTH
 
 def get_training_config():
     """

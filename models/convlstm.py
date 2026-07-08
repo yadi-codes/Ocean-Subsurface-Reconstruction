@@ -88,9 +88,9 @@ class ConvLSTM(nn.Module):
 
     def __init__(
         self,
-        input_dim: int,
-        hidden_dim: int,
-        kernel_size: int = 3,
+        input_dim: int = config.INPUT_CHANNELS,
+        hidden_dim: int = config.HIDDEN_DIM,
+        kernel_size: int = config.KERNEL_SIZE,
         bias: bool = True,
     ):
 
